@@ -1,0 +1,122 @@
+#%RAML 1.0
+title: HR
+version: v1
+baseUri: https://api.github.com
+mediaType: application/xml
+
+uses:
+    ramltopojo: ramltopojo.raml
+
+types:
+    double:
+       (ramltopojo.types):
+         plugins:
+          - name: core.changeType
+            arguments: [ java.lang.Double, unbox ]
+
+    Person:
+        schema: |
+            <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+             <xs:element name="Person">
+              <xs:complexType>
+               <xs:sequence>
+                <xs:element name="Id" type="xs:string" />
+                <xs:element name="AccountNumber" type="xs:string" />
+                <xs:element name="Balance" type="xs:double" />
+                <xs:element name="Name" type="xs:string" />
+                <xs:element name="DateOfBirth" type="xs:date" />
+                <xs:element minOccurs="0" name="Address">
+                 <xs:complexType>
+                  <xs:sequence>
+                   <xs:element name="HouseNo" type="xs:int" />
+                   <xs:element name="PostCode" type="xs:string" />
+                  </xs:sequence>
+                 </xs:complexType>
+                </xs:element>
+                <xs:element name="AccountStatus" type="xs:boolean" />
+               </xs:sequence>
+              </xs:complexType>
+             </xs:element>
+            </xs:schema>
+
+/hr:
+    description: The search resource
+    get:
+        responses:
+            200:
+                body:
+                    application/xml:
+                        type:
+                            (ramltopojo.types):
+                                     plugins:
+                                      - name: core.changeType
+                                        arguments: [ javax.ws.rs.core.Response ]
+                    application/json:
+                        type:
+                            (ramltopojo.types):
+                                     plugins:
+                                      - name: core.changeType
+                                        arguments: [ javax.ws.rs.core.Response ]
+    put:
+        body:
+            application/xml:
+                type:
+                    (ramltopojo.types):
+                            plugins:
+                             - name: core.changeType
+                               arguments: [ com.yoganand.platform.services.ebpi.common.v1.Person ]
+            application/json:
+                type:
+                    (ramltopojo.types):
+                            plugins:
+                             - name: core.changeType
+                               arguments: [ com.yoganand.platform.services.ebpi.common.v1.Person ]
+        responses:
+            200:
+                body:
+                    application/xml:
+                        type:
+                            (ramltopojo.types):
+                                     plugins:
+                                      - name: core.changeType
+                                        arguments: [ javax.ws.rs.core.Response ]
+                    application/json:
+                        type:
+                            (ramltopojo.types):
+                                     plugins:
+                                      - name: core.changeType
+                                        arguments: [ javax.ws.rs.core.Response ]
+    '/{personId}':
+            get:
+                responses:
+                    200:
+                        body:
+                            application/xml:
+                                type:
+                                    (ramltopojo.types):
+                                             plugins:
+                                              - name: core.changeType
+                                                arguments: [ javax.ws.rs.core.Response ]
+                            application/json:
+                                type:
+                                    (ramltopojo.types):
+                                             plugins:
+                                              - name: core.changeType
+                                                arguments: [ javax.ws.rs.core.Response ]
+            /withdraw/{amount}:
+                    get:
+                        responses:
+                            200:
+                                body:
+                                    application/xml:
+                                        type:
+                                            (ramltopojo.types):
+                                                     plugins:
+                                                      - name: core.changeType
+                                                        arguments: [ javax.ws.rs.core.Response ]
+                                    application/json:
+                                        type:
+                                            (ramltopojo.types):
+                                                     plugins:
+                                                      - name: core.changeType
+                                                        arguments: [ javax.ws.rs.core.Response ]

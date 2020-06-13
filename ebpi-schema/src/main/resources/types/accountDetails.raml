@@ -1,0 +1,21 @@
+#%RAML 1.0 Library
+
+
+types:
+    double:
+      (ramltopojo.types):
+        plugins:
+         -name: core.changeType
+          arguments: [ java.lang.Double, unbox ]
+
+    AccountDetail:
+      properties:
+        accountName:
+            type: string
+            required: true
+        accountNumber:
+            type: string
+            required: true
+        balance:
+            type: double
+

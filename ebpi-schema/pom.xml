@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>ebpi-services-api</artifactId>
+        <groupId>com.ebpi</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>ebpi-schema</artifactId>
+    <packaging>jar</packaging>
+    <properties>
+        <apache.cxf.version>3.3.2</apache.cxf.version>
+        <jdk.version>11</jdk.version>
+    </properties>
+
+    <dependencies>
+    <dependency>
+        <groupId>org.raml.jaxrs</groupId>
+        <artifactId>raml-to-jaxrs-maven-plugin</artifactId>
+        <version>3.0.4</version>
+    </dependency>
+    <dependency>
+        <groupId>org.raml.jaxrs</groupId>
+        <artifactId>jaxrs-code-generator</artifactId>
+        <version>3.0.4</version>
+    </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>${apache.cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${apache.cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>2.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.raml.jaxrs</groupId>
+                <artifactId>raml-to-jaxrs-maven-plugin</artifactId>
+                <version>3.0.4</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>servlet-api</artifactId>
+                        <version>2.5</version>
+                        <scope>compile</scope>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <ramlFile>${project.build.resources[0].directory}/sample.raml</ramlFile>
+                    <resourcePackage>com.yoganand.platform.services.ebpi.common.resource</resourcePackage>
+                    <modelPackage>com.yoganand.platform.services.ebpi.common.v1</modelPackage>
+                    <supportPackage>com.yoganand.platform.services.ebpi.common.support</supportPackage>
+                    <generateTypesWith>
+                        <value>jackson2</value>
+                        <value>jsr303</value>
+                        <value>equalsAndHashCode</value>
+                        <value>simpleResponseObjects</value>
+                    </generateTypesWith>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-resources</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${maven-release-plugin.version}</version>
+                    <configuration>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <tagNameFormat>@{project.version}</tagNameFormat>
+                    </configuration>
+                </plugin>
+        </plugins>
+    </build>
+
+
+</project>

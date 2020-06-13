@@ -1,0 +1,16 @@
+#%RAML 1.0
+
+title: Account APIs
+version: v1
+baseUri: https://ebpi-api.yoganand.com/account
+
+### Plugin configuration ###
+uses:
+    ramltojaxrs: ramltojaxrs.raml
+    ramltopojo: ramltopojo.raml
+
+
+
+
+### Account API definition ####
+/v1/accounts: !include /apis/v1/accounts_api_contract.raml

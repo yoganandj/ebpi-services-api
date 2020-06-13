@@ -1,0 +1,34 @@
+#%RAML 1.0
+
+title: Account APIs
+version: v1
+baseUri: https://ebpi-api.yoganand.com/account
+
+### Plugin configuration ###
+uses:
+  ramltojaxrs: ramltojaxrs.raml
+  ramltopojo: ramltopojo.raml
+
+
+types:
+    Error:
+      additionalProperties: false
+      properties:
+        code:
+            type: string
+            required: true
+        type:
+            type: string
+            required: true
+        detail:
+            type: string
+        moreInfo:
+            type: string
+
+    ErrorResponse:
+      additionalProperties: false
+      properties:
+        errors:
+            type: Error[]
+
+

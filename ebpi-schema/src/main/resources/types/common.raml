@@ -1,0 +1,24 @@
+#%RAML 1.0
+
+types:
+    Error:
+      additionalProperties: false
+      properties:
+        code:
+            type: string
+            required: true
+        type:
+            type: string
+            required: true
+        detail:
+            type: string
+        moreInfo:
+            type: string
+
+    ErrorResponse:
+      additionalProperties: false
+      properties:
+        errors:
+            type: Error[]
+
+
